@@ -1,4 +1,4 @@
-import { Page } from './Page';
+import { Page } from '@/components/Page.js';
 import * as HeaderStories from './Header.stories';
 
 export default {

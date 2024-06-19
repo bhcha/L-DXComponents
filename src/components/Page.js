@@ -1,6 +1,15 @@
-import{x as m}from"./lit-element-Dg3ploa8.js";import{H as l,L as h,a as u}from"./Header.stories-D0WC2aVX.js";import"./Button-CpgdIelO.js";const v=({user:r,onLogin:p,onLogout:d,onCreateAccount:c})=>m`
+import { html } from 'lit';
+import { Header } from './Header.js';
+import './page.css';
+
+export const Page = ({ user, onLogin, onLogout, onCreateAccount }) => html`
   <article>
-    ${l({user:r,onLogin:p,onLogout:d,onCreateAccount:c})}
+    ${Header({
+      user,
+      onLogin,
+      onLogout,
+      onCreateAccount,
+    })}
 
     <section class="storybook-page">
       <h2>Pages in Storybook</h2>
@@ -49,13 +58,4 @@ import{x as m}from"./lit-element-Dg3ploa8.js";import{H as l,L as h,a as u}from".
       </div>
     </section>
   </article>
-`,k={title:"Example/Page",render:r=>v(r)},e={args:{...h.args}},o={args:{...u.args}};var t,a,s;e.parameters={...e.parameters,docs:{...(t=e.parameters)==null?void 0:t.docs,source:{originalSource:`{
-  args: {
-    // More on composing args: https://storybook.js.org/docs/writing-stories/args#args-composition
-    ...HeaderStories.LoggedIn.args
-  }
-}`,...(s=(a=e.parameters)==null?void 0:a.docs)==null?void 0:s.source}}};var n,i,g;o.parameters={...o.parameters,docs:{...(n=o.parameters)==null?void 0:n.docs,source:{originalSource:`{
-  args: {
-    ...HeaderStories.LoggedOut.args
-  }
-}`,...(g=(i=o.parameters)==null?void 0:i.docs)==null?void 0:g.source}}};const y=["LoggedIn","LoggedOut"];export{e as LoggedIn,o as LoggedOut,y as __namedExportsOrder,k as default};
+`;
