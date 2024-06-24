@@ -1,11 +1,10 @@
 {
   "name": "webcomponents",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "version": "echo $npm_package_version",
     "build": "vite build",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
