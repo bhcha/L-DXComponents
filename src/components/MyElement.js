@@ -10,7 +10,7 @@ class MyElement extends LitElement {
 
     constructor() {
         super();
-        this.greeting = `2Hiya, let's get some stuff done...`;
+        this.greeting = `222Hiya, let's get some stuff done...`;
         this.todos = ['sleep!', 'eat', 'work', 'exercise'];
         this.show = false;
     }
