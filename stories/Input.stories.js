@@ -18,7 +18,10 @@ export default {
         },
         id: {table: {category: "attribures",}},
         name: {table: {category: "attribures",}},
-        width: {table: {category: "attribures",}},
+        width: {
+            control: {type: 'text'},
+            table: {category: "attribures",}
+        },
 
         label: {
             table: {
@@ -71,12 +74,14 @@ export default {
             }
         },
         placeholder: {
+            control: {type: 'text'},
             table: {
                 category: "attribures",
                 subcategory: "text",
             }
         },
         value: {
+            control: {type: 'text'},
             table: {
                 category: "attribures",
                 subcategory: "text",
@@ -97,6 +102,7 @@ export default {
             }
         },
         pattern: {
+            control: {type: 'text'},
             table: {
                 category: "attribures",
                 subcategory: "validate",
@@ -113,16 +119,14 @@ export default {
             }
         },
         disabled: {
-            control: {type: 'select'},
-            options: [false, true],
+            control: {type: 'boolean'},
             table: {
                 category: "attribures",
                 defaultValue: {summary: false}
             }
         },
         readonly: {
-            control: {type: 'select'},
-            options: [false, true],
+            control: {type: 'boolean'},
             table: {
                 category: "attribures",
                 defaultValue: {summary: false}
@@ -191,9 +195,7 @@ const Template = (args) => {
                 placeholder="${ifDefined(args.placeholder)}"
                 pattern="${ifDefined(args.pattern)}"
                 value="${ifDefined(args.value)}"
-        >
-
-        </l-input>`
+        />`
 }
 
 export const InputWithTopLabelAndFeedback = Template.bind({});
@@ -201,18 +203,14 @@ InputWithTopLabelAndFeedback.args = {
     type: 'text',
     id: 'input01',
     name: 'name',
-    width: 'auto',
     label: 'label',
-    labelAlign: 'top',
     labelWidth: 'auto',
     labelTextAlign: 'left',
     feedback: 'feedback',
     required: false,
     disabled: false,
     readonly: false,
-    value: '',
-    pattern: '',
-    placeholder: '',
+
 };
 
 export const InputWithLeftLabelAndFeedback = Template.bind({});
@@ -220,7 +218,6 @@ InputWithLeftLabelAndFeedback.args = {
     type: 'text',
     id: 'input01',
     name: 'name',
-    width: 'auto',
     label: 'label : ',
     labelAlign: 'left',
     labelWidth: '50px',
@@ -229,9 +226,7 @@ InputWithLeftLabelAndFeedback.args = {
     required: false,
     disabled: false,
     readonly: false,
-    value: '',
-    pattern: '',
-    placeholder: '',
+
 };
 
 
@@ -246,7 +241,5 @@ Input.args = {
     required: false,
     disabled: false,
     readonly: false,
-    value: '',
-    pattern: '',
-    placeholder: '',
+
 };
