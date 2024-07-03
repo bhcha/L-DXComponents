@@ -5,6 +5,7 @@ import {SharedStyles} from "../commons/SharedStyles.js";
 import {LitParents} from "../commons/LitParents.js";
 import {LFeedback} from "@/components/text/Feedback.js";
 
+
 class LInput extends LitParents {
 
     constructor() {
@@ -74,7 +75,6 @@ class LInput extends LitParents {
         ];
 
 
-
     formatValue(value) {
         // 예시: 숫자 포맷팅 (쉼표 추가)
         return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -84,13 +84,13 @@ class LInput extends LitParents {
         const regex = new RegExp(this.pattern);
         const value = this.getValue();
 
-        if(!value && this.required) {
+        if (!value && this.required) {
             return false;
         } else return !(regex && !regex.test(value));
     }
 
     validate() {
-        if(this.isValid()) {
+        if (this.isValid()) {
             this.shadowRoot.querySelector(this.selector).classList.remove('is-invalid');
         } else {
             this.shadowRoot.querySelector(this.selector).classList.add('is-invalid');
@@ -125,18 +125,20 @@ class LInput extends LitParents {
         let isLabelLeft = (this.labelAlign && this.labelAlign == 'left');
 
         return html`
-            <div 
-                class="${isLabelLeft ? 'container' : ''}"
-                style="width: ${this.width ? this.width : 'auto'}"
+            <div
+                    class="${isLabelLeft ? 'container' : ''}"
+                    style="width: ${this.width ? this.width : 'auto'}"
             >
-                ${new LLabel({
-                    label: `${this.label}`,
-                    id: `${this.id}`,
-                    labelAlign: `${this.labelAlign}`,
-                    labelWidth: `${this.labelWidth}`,
-                    labelTextAlign: `${this.labelTextAlign}`,
-                    required: `${this.required}`
-                })}
+                ${
+                        this.label === undefined ? '' : 
+                        new LLabel({
+                            label: `${this.label}`,
+                            id: `${this.id}`,
+                            labelAlign: `${this.labelAlign}`,
+                            labelWidth: `${this.labelWidth}`,
+                            labelTextAlign: `${this.labelTextAlign}`,
+                            required: `${this.required}`
+                        })}
                 <input type="${this.type}"
                        class="${isLabelLeft ? 'l-flex-input' : 'l-input'}"
                        id="${this.id}"
