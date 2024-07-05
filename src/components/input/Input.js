@@ -26,6 +26,7 @@ class LInput extends LitParents {
             }
 
             .l-input {
+                display: block;
                 width: 100%;
                 padding: .375rem .75rem;
                 font-size: .875rem;
@@ -38,6 +39,8 @@ class LInput extends LitParents {
                 border-radius: 8px;
                 outline: none;
             }
+
+            
 
             .l-flex-input {
                 flex-grow: 1;
@@ -71,6 +74,8 @@ class LInput extends LitParents {
                 background-position: right calc(.375em + .1875rem) center;
                 background-size: calc(.75em + .375rem) calc(.75em + .375rem)
             }
+
+
         `
         ];
 
@@ -125,20 +130,20 @@ class LInput extends LitParents {
         let isLabelLeft = (this.labelAlign && this.labelAlign == 'left');
 
         return html`
-            <div
+            <l-input-container
                     class="${isLabelLeft ? 'container' : ''}"
                     style="width: ${this.width ? this.width : 'auto'}"
             >
-                ${
-                        this.label === undefined ? '' : 
-                        new LLabel({
-                            label: `${this.label}`,
-                            id: `${this.id}`,
-                            labelAlign: `${this.labelAlign}`,
-                            labelWidth: `${this.labelWidth}`,
-                            labelTextAlign: `${this.labelTextAlign}`,
-                            required: `${this.required}`
-                        })}
+                <l-label
+                        label="${this.label}" ,
+                        id="${this.id}" ,
+                        labelAlign="${this.labelAlign}" ,
+                        labelWidth="${this.labelWidth}" ,
+                        labelTextAlign="${this.labelTextAlign}" ,
+                        required="${this.required}"
+                >
+
+                </l-label>
                 <input type="${this.type}"
                        class="${isLabelLeft ? 'l-flex-input' : 'l-input'}"
                        id="${this.id}"
@@ -153,14 +158,16 @@ class LInput extends LitParents {
                        value="${this.value}"
                        @blur="${this.validate}"
                 >
-            </div>
-            ${new LFeedback({
-                feedback: `${this.feedback}`,
-                feedbackType: `${this.feedbackType}`,
-                width: `${this.width}`,
-                labelAlign: `${this.labelAlign}`,
-                labelWidth: `${this.labelWidth}`,
-            })}
+            </l-input-container>
+            <l-feedback
+                    feedback="${this.feedback}",
+                    feedbackType="${this.feedbackType}",
+                    width="${this.width}",
+                    labelAlign="${this.labelAlign}",
+                    leftMargin="${this.labelWidth}",
+            >
+
+            </l-feedback>
         `;
     }
 }

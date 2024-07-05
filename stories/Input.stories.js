@@ -10,7 +10,7 @@ export default {
     argTypes: {
         type: {
             control: {type: 'select'},
-            options: ['text', 'number', 'password', 'tel', 'hidden'],
+            options: ['text', 'number', 'password', 'tel', 'hidden','file'],
             table: {
                 category: "attribures",
                 defaultValue: {summary: 'text'}
@@ -192,8 +192,7 @@ const Template = (args) => {
                 pattern="${ifDefined(args.pattern)}"
                 value="${ifDefined(args.value)}"
         >
-
-        </l-input>`
+</l-input>`
 }
 
 export const InputWithTopLabelAndFeedback = Template.bind({});
