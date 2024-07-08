@@ -15,8 +15,16 @@ class LFeedback extends LitElement {
                      width: 100%;
                      margin-top: .25rem;
                      font-size: .875em;
-                     color: var(--bs-success-text);
                  }
+                 
+                 .invalid-feedback {
+                    display: block;
+                    width: 100%;
+                    margin-top: .25rem;
+                    font-size: .875em;
+                    color: var(--bs-danger);
+                 }
+                 
             `
         ]
     ;
@@ -24,6 +32,7 @@ class LFeedback extends LitElement {
     static get properties() {
         return {
             feedback: {type: String},
+            feedbackType: {type: String},
             width: {type: String},
             labelAlign: {type: String},
             leftMargin: {type: String},

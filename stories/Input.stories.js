@@ -63,10 +63,10 @@ export default {
         },
         feedbackType : {
             control: {type: 'select'},
-            options: ['hint', 'error'],
+            options: ['normal', 'hint', 'error'],
             table: {
                 category: "attribures",
-                defaultValue: {summary: 'hint'},
+                defaultValue: {summary: 'normal'},
                 subcategory: "text"
             }
         },
@@ -180,6 +180,7 @@ const Template = (args) => {
                 labelWidth=${ifDefined(args.labelWidth)}
                 labelTextAlign=${ifDefined(args.labelTextAlign)}
                 feedback=${ifDefined(args.feedback)}
+                feedbackType=${ifDefined(args.feedbackType)}
                 id=${ifDefined(args.id)}
                 name=${ifDefined(args.name)}
                 width=${ifDefined(args.width)}
@@ -206,6 +207,7 @@ InputWithTopLabelAndFeedback.args = {
     labelWidth: 'auto',
     labelTextAlign: 'left',
     feedback: 'feedback',
+    feedbackType: 'normal',
     required: false,
     disabled: false,
     readonly: false,

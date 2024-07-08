@@ -29,7 +29,6 @@ class LInput extends LitParents {
 
 
           .l-input {
-
             width: 100%;
             padding: .375rem .75rem;
             font-size: .875rem;
@@ -59,15 +58,7 @@ class LInput extends LitParents {
             outline: none;
             transition: all 0.3s ease-in-out;
           }
-
-          .is-valid {
-            border-color: var(--bs-success);
-            padding-right: calc(1.5em + .75rem);
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%231b8835' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right calc(.375em + .1875rem) center;
-            background-size: calc(.75em + .375rem) calc(.75em + .375rem)
-          }
+            
 
           .is-invalid {
             border-color: var(--bs-danger);
@@ -107,17 +98,17 @@ class LInput extends LitParents {
         return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
-    isValid() {
-        const regex = new RegExp(this.pattern);
+    isValid(pattern, required) {
+        const regex = new RegExp(pattern);
         const value = this.getValue();
 
-        if (!value && this.required) {
+        if (!value && required) {
             return false;
         } else return !(regex && !regex.test(value));
     }
 
     validate() {
-        if (this.isValid()) {
+        if (this.isValid(this.pattern, this.required)) {
             this.shadowRoot.querySelector(this.selector).classList.remove('is-invalid');
         } else {
             this.shadowRoot.querySelector(this.selector).classList.add('is-invalid');
