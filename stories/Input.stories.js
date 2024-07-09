@@ -10,7 +10,7 @@ export default {
     argTypes: {
         type: {
             control: {type: 'select'},
-            options: ['text', 'number', 'password', 'tel', 'hidden', 'file'],
+            options: ['text', 'planText', 'number', 'password', 'tel', 'hidden', 'file'],
             table: {
                 category: "attribures",
                 defaultValue: {summary: 'text'}
@@ -113,16 +113,14 @@ export default {
             }
         },
         disabled: {
-            control: {type: 'select'},
-            options: [false, true],
+            control: 'boolean',
             table: {
                 category: "attribures",
                 defaultValue: {summary: false}
             }
         },
         readonly: {
-            control: {type: 'select'},
-            options: [false, true],
+            control: 'boolean',
             table: {
                 category: "attribures",
                 defaultValue: {summary: false}

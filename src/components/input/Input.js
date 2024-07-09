@@ -5,6 +5,7 @@ import {InputContainer} from "../group/InputContainer.js";
 import {classMap} from "lit/directives/class-map.js";
 import '../commons/common.css';
 import {SharedStyles} from "../commons/SharedStyles.js";
+import {TextStyles} from "../commons/TextStyles.js";
 import {LitParents} from "../commons/LitParents.js";
 
 
@@ -19,32 +20,13 @@ class LInput extends LitParents {
     static styles =
         [
             // common css
-            SharedStyles.styles
-
+            SharedStyles.styles,
+            // text css
+            TextStyles.styles,
             // component css
-            , css`
-          *, ::after, ::before {
-            box-sizing: border-box;
-          }
-
-
-          .l-input {
-            width: 100%;
-            padding: .375rem .75rem;
-            font-size: .875rem;
-            font-weight: 400;
-            line-height: 1.5;
-            color: var(--bs-body-color);
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            border: var(--bs-border-width) solid var(--bs-border-color);
-            border-radius: 8px;
-            outline: none;
-            transition: all 0.3s ease-in-out;
-          }
-
-
-          .l-left-input {
+             css`
+            
+          .form-left-control {
             flex-grow: 1;
             padding: .375rem .75rem;
             font-size: .875rem;
@@ -59,35 +41,6 @@ class LInput extends LitParents {
             transition: all 0.3s ease-in-out;
           }
             
-
-          .is-invalid {
-            border-color: var(--bs-danger);
-            padding-right: calc(1.5em + .75rem);
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23df1414'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23df1414' stroke='none'/%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right calc(.375em + .1875rem) center;
-            background-size: calc(.75em + .375rem) calc(.75em + .375rem)
-          }
-
-          .l-input::file-selector-button {
-            padding: .375rem .75rem;
-            margin: -.375rem -.75rem;
-            -webkit-margin-end: .75rem;
-            margin-inline-end: .75rem;
-            color: var(--bs-body-color);
-            background-color: var(--bs-tertiary-bg);
-            pointer-events: none;
-            border-color: inherit;
-            border-style: solid;
-            border-width: 0;
-            border-inline-end-width: var(--bs-border-width);
-            border-radius: 0;
-            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
-          }
-          ::file-selector-button {
-            font: inherit;
-            -webkit-appearance: button;
-          }
 
         `
         ];
@@ -166,11 +119,12 @@ class LInput extends LitParents {
                 </l-label>
                 <input
                         slot="input"
-                        type="${this.type}"
+                        type="${this.type === 'planText' ? 'text' : this.type}"
                         class="${
                                 classMap({
-                                    'l-input': !isLabelLeft
-                                    , 'l-left-input': isLabelLeft
+                                    'form-control': !isLabelLeft
+                                    , 'form-left-control': isLabelLeft
+                                    , 'form-control-plaintext': this.type === 'planText'
                                 })
                         }"
                         id=" ${this.id}"

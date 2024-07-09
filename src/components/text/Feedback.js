@@ -1,56 +1,81 @@
 import {css, html, LitElement} from 'lit';
 import '../commons/common.css';
 import {classMap} from "lit/directives/class-map.js";
+import {SharedStyles as TextStyles} from "@/components/commons/SharedStyles.js";
 
 class LFeedback extends LitElement {
     static styles =
         [
+            // text css
+            TextStyles.styles,
             // component css
             css`
-              .is-valid ~ .valid-feedback, .is-valid ~ .valid-tooltip, .was-validated :valid ~ .valid-feedback, .was-validated :valid ~ .valid-tooltip {
-                display: block;
-              }
+                .input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+                    margin-left: calc(var(--bs-border-width) * -1);
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0
+                }
 
-              .valid-feedback {
-                display: block;
-                width: 100%;
-                margin-top: .25rem;
-                font-size: .875em;
-              }
+                .valid-feedback {
+                    //display: none;
+                    width: 100%;
+                    margin-top: .25rem;
+                    font-size: .875em;
+                    color: var(--bs-success-text)
+                }
 
-              .invalid-feedback {
-                display: block;
-                width: 100%;
-                margin-top: .25rem;
-                font-size: .875em;
-                color: var(--bs-danger);
-              }
+                .is-valid ~ .valid-feedback, .is-valid ~ .valid-tooltip, .was-validated :valid ~ .valid-feedback, .was-validated :valid ~ .valid-tooltip {
+                    display: block;
+                }
 
-              .form-group {
-                display: flex;
-                flex-direction: column;
-                gap: var(--krds-spacer-3);
-                width: 100%;
-              }
+                .form-check-inline .form-check-input ~ .valid-feedback {
+                    margin-left: .5em
+                }
 
-              .form-group [class^=form-hint] {
-                color: var(--krds-gray-70);
-                padding-left: calc(2rem + var(--krds-spacer-1));
-              }
+                .invalid-feedback {
+                    //display: none;
+                    width: 100%;
+                    margin-top: .25rem;
+                    font-size: .875em;
+                    color: var(--bs-danger)
+                }
 
-              .form-group [class^=form-hint]::before {
-                display: inline-flex;
-                width: 1.2rem;
-                height: 1.2rem;
-                flex-shrink: 0;
-                flex-grow: 0;
-                content: "";
-                margin-left: calc((2rem + var(--krds-spacer-1)) * -1);
-                vertical-align: top;
+                .is-invalid ~ .invalid-feedback, .is-invalid ~ .invalid-tooltip, .was-validated :invalid ~ .invalid-feedback, .was-validated :invalid ~ .invalid-tooltip {
+                    display: block
+                }
 
-                background: url(/assets/ico_hint_20.svg) no-repeat center;
-                background-size: contain;
-              }
+                .form-check-inline .form-check-input ~ .invalid-feedback {
+                    margin-left: .5em
+                }
+
+
+                .form-group {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1.2rem;
+                    width: 100%;
+                }
+
+                .form-group [class^=form-hint] {
+                    margin-top: .25rem;
+                    color: var(--bs-gray-500);
+                    padding-left: calc(2rem + 0.4rem);
+                }
+
+                .form-group [class^=form-hint]::before {
+                    display: inline-flex;
+                    width: 1rem;
+                    height: 1rem;
+                    flex-shrink: 0;
+                    flex-grow: 0;
+                    content: "";
+                    margin-left: calc((2rem + 0.4rem) * -1);
+                    margin-right: 2px;
+                    vertical-align: top;
+
+                    background: url(/assets/ico_hint_20.svg) no-repeat center;
+                    background-size: contain;
+                }
 
             `
         ]
@@ -68,26 +93,22 @@ class LFeedback extends LitElement {
 
     render() {
         let isLabelLeft = (this.labelAlign && this.labelAlign == 'left');
+
+        const feedbackHtml = {
+                'normal': html`<div class="valid-feedback">${this.feedback}</div>`,
+                'hint': html`<div class="form-group"><small class="form-hint form-text text-muted">${this.feedback}</small></div>`,
+                'error': html`<div class="invalid-feedback">${this.feedback}</div>`
+            }
+        ;
+
         return html`
-            <div class="valid-feedback"
+            <div
                  style="
                     padding-left: calc(${this.leftMargin} + ${isLabelLeft ? `15px` : '0px'})
                     ;width: ${this.width ? this.width : 'auto'};
                 "
             >
-                <div class="form-group">
-                    <div class="${
-                            classMap({
-                                'form-hint': this.feedbackType === 'hint',
-                                'invalid-feedback': this.feedbackType === 'error'
-                            })
-                    }
-                    ">
-                        ${this.feedback}
-                    </div>
-                </div>
-
-
+                    ${feedbackHtml[this.feedbackType]}
             </div>
         `
     }
