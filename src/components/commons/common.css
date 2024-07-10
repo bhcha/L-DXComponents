@@ -808,5 +808,45 @@ progress {
     --bs-breakpoint-xxxl: 1900px
 }
 
+:root, [data-bs-theme=light] {
+    --bs-component-bg: #FFFFFF;
+    --bs-component-bg-rgb: 255, 255, 255;
+    --bs-component-color: #222222;
+    --bs-component-color-rgb: 34, 34, 34;
+    --bs-app-header-bg: #FFFFFF;
+    --bs-app-header-color: #222222;
+    --bs-app-header-color-rgb: 34, 34, 34;
+    --bs-app-header-border-color: rgba(0, 0, 0, 0.1);
+    --bs-app-header-scroll-box-shadow: 0 0.1875rem 0.75rem rgba(0, 0, 0, 0.1);
+    --bs-app-sidebar-link-color: #222222;
+    --bs-app-sidebar-link-hover-color: #222222;
+    --bs-app-sidebar-link-hover-bg: #e3e7eb;
+    --bs-app-sidebar-link-active-color: #0052cc;
+    --bs-app-sidebar-link-active-bg: rgba(var(--bs-theme-rgb), 0.15);
+    --bs-app-sidebar-mobile-bg: rgba(255, 255, 255, 0.98);
+    --bs-theme-bg-subtle: #cce0ff
+}
 
+[data-bs-theme=dark] {
+    --bs-component-bg: #28292b;
+    --bs-component-bg-rgb: 40, 41, 43;
+    --bs-component-color: #aaaaaa;
+    --bs-component-color-rgb: 170, 170, 170;
+    --bs-app-header-bg: #28292b;
+    --bs-app-header-color: #FFFFFF;
+    --bs-app-header-color-rgb: 255, 255, 255;
+    --bs-app-header-border-color: rgba(185, 185, 185, 0.1);
+    --bs-app-sidebar-link-color: #aaaaaa;
+    --bs-app-sidebar-link-hover-color: #aaaaaa;
+    --bs-app-sidebar-link-hover-bg: #444950;
+    --bs-app-sidebar-link-active-color: #66a3ff;
+    --bs-app-sidebar-link-active-bg: rgba(var(--bs-theme-rgb), 0.5);
+    --bs-app-sidebar-mobile-bg: rgba(51, 55, 58, 0.98);
+    --bs-theme-bg-subtle: #001433
+}
+
+body:not(.app-init) * {
+    transition: none !important;
+    animation: none !important
+}
 

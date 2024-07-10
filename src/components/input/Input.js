@@ -7,6 +7,7 @@ import '../commons/common.css';
 import {SharedStyles} from "../commons/SharedStyles.js";
 import {TextStyles} from "../commons/TextStyles.js";
 import {LitParents} from "../commons/LitParents.js";
+import {ifDefined} from "lit/directives/if-defined.js";
 
 
 class LInput extends LitParents {
@@ -25,24 +26,24 @@ class LInput extends LitParents {
             TextStyles.styles,
             // component css
              css`
-            
-          .form-left-control {
-            flex-grow: 1;
-            padding: .375rem .75rem;
-            font-size: .875rem;
-            font-weight: 400;
-            line-height: 1.5;
-            color: var(--bs-body-color);
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            border: var(--bs-border-width) solid var(--bs-border-color);
-            border-radius: 8px;
-            outline: none;
-            transition: all 0.3s ease-in-out;
-          }
-            
 
-        `
+                 .form-left-control {
+                     flex-grow: 1;
+                     padding: .375rem .75rem;
+                     font-size: .875rem;
+                     font-weight: 400;
+                     line-height: 1.5;
+                     color: var(--bs-body-color);
+                     -webkit-appearance: none;
+                     -moz-appearance: none;
+                     border: var(--bs-border-width) solid var(--bs-border-color);
+                     border-radius: 8px;
+                     outline: none;
+                     transition: all 0.3s ease-in-out;
+                 }
+
+
+             `
         ];
 
 
@@ -104,16 +105,16 @@ class LInput extends LitParents {
                                 'container': isLabelLeft
                             })
                     }"
-                    width="${this.width}"
+                    width="${ifDefined(this.width)}"
             >
                 <l-label
                         slot="label"
                         label="${this.label}"
                         id="${this.id}"
-                        labelAlign="${this.labelAlign}"
-                        labelWidth="${this.labelWidth}"
-                        labelTextAlign="${this.labelTextAlign}"
-                        required="${this.required}"
+                        labelAlign="${ifDefined(this.labelAlign)}"
+                        labelWidth="${ifDefined(this.labelWidth)}"
+                        labelTextAlign="${ifDefined(this.labelTextAlign)}"
+                        required="${ifDefined(this.required)}"
                 >
 
                 </l-label>
@@ -127,25 +128,25 @@ class LInput extends LitParents {
                                     , 'form-control-plaintext': this.type === 'planText'
                                 })
                         }"
-                        id=" ${this.id}"
-                        name="${this.name}"
-                        minlength="${this.minlength}"
-                        maxlength="${this.maxlength}"
+                        id="${ifDefined(this.id)}"
+                        name="${ifDefined(this.name)}"
+                        minlength="${ifDefined(this.minlength)}"
+                        maxlength="${ifDefined(this.maxlength)}"
                         ?required=${this.required}
                         ?disabled=${this.disabled}
                         ?readonly=${this.readonly}
-                        placeholder="${this.placeholder}"
-                        pattern="${this.pattern}"
-                        value="${this.value}"
+                        placeholder="${ifDefined(this.placeholder)}"
+                        pattern="${ifDefined(this.pattern)}"
+                        value="${ifDefined(this.value)}"
                         @blur="${this.validate}"
                 >
             </l-input-container>
             <l-feedback
-                    feedback="${this.feedback}"
-                    feedbackType="${this.feedbackType}"
-                    width="${this.width}"
-                    labelAlign="${this.labelAlign}"
-                    leftMargin="${this.labelWidth}"
+                    feedback="${ifDefined(this.feedback)}"
+                    feedbackType="${ifDefined(this.feedbackType)}"
+                    width="${ifDefined(this.width)}"
+                    labelAlign="${ifDefined(this.labelAlign)}"
+                    leftMargin="${ifDefined(this.labelWidth)}"
             >
 
             </l-feedback>
