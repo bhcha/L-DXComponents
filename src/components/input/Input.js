@@ -26,7 +26,7 @@ class LInput extends LitParents {
             TextStyles.styles,
             // component css
              css`
-
+                 
                  .form-left-control {
                      flex-grow: 1;
                      padding: .375rem .75rem;
@@ -96,7 +96,6 @@ class LInput extends LitParents {
 
     render() {
         let isLabelLeft = (this.labelAlign && this.labelAlign == 'left');
-
 
         return html`
             <l-input-container
