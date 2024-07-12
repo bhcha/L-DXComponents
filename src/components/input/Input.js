@@ -54,31 +54,49 @@ class LInput extends LitParents {
 
     isValid(pattern, required) {
         const regex = new RegExp(pattern);
-        const value = this.getValue();
+        const value = this.getValue().trim();
+
+        console.log(regex, regex.test(value), !(regex && !regex.test(value)))
 
         if (!value && required) {
             return false;
-        } else return !(regex && !regex.test(value));
+        } else return !((regex && value) && !regex.test(value));
     }
 
     validate() {
+        if(this.feedbackVisibleType !== 'visible') {
+            this.shadowRoot.querySelector('l-feedback').setAttribute('hidden',true);
+        }
+
         if (this.isValid(this.pattern, this.required)) {
             this.shadowRoot.querySelector(this.selector).classList.remove('is-invalid');
+            if(this.feedbackVisibleType === 'valid') {
+                this.shadowRoot.querySelector('l-feedback').removeAttribute('hidden');
+            }
         } else {
             this.shadowRoot.querySelector(this.selector).classList.add('is-invalid');
+            if(this.feedbackVisibleType === 'invalid') {
+                this.shadowRoot.querySelector('l-feedback').removeAttribute('hidden');
+            }
         }
+    }
+
+    checkValidity() {
+        this.validate();
     }
 
 
     static get properties() {
         return {
             type: {type: String},
+            size: {type: String},
             id: {type: String},
             name: {type: String},
             width: {type: String},
             label: {type: String},
             feedback: {type: String},
             feedbackType: {type: String},
+            feedbackVisibleType: {type: String},
             labelAlign: {type: String},
             labelWidth: {type: String},
             labelTextAlign: {type: String},
@@ -108,7 +126,7 @@ class LInput extends LitParents {
             >
                 <l-label
                         slot="label"
-                        label="${this.label}"
+                        label="${ifDefined(this.label)}"
                         id="${this.id}"
                         labelAlign="${ifDefined(this.labelAlign)}"
                         labelWidth="${ifDefined(this.labelWidth)}"
@@ -125,6 +143,8 @@ class LInput extends LitParents {
                                     'form-control': !isLabelLeft
                                     , 'form-left-control': isLabelLeft
                                     , 'form-control-plaintext': this.type === 'planText'
+                                    , 'form-control-lg': this.size === 'large'
+                                    , 'form-control-sm': this.size === 'small'
                                 })
                         }"
                         id="${ifDefined(this.id)}"
@@ -146,6 +166,7 @@ class LInput extends LitParents {
                     width="${ifDefined(this.width)}"
                     labelAlign="${ifDefined(this.labelAlign)}"
                     leftMargin="${ifDefined(this.labelWidth)}"
+                    ?hidden="${this.feedbackVisibleType !== 'visible'}"
             >
 
             </l-feedback>
