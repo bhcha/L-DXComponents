@@ -10,7 +10,7 @@ import {LitParents} from "../commons/LitParents.js";
 import {ifDefined} from "lit/directives/if-defined.js";
 import {customElement, property, eventOptions, query} from 'lit/decorators.js';
 
-// @customElement('l-input')
+@customElement('l-input')
 class LInput extends LitParents {
 
     constructor() {
@@ -116,5 +116,3 @@ class LInput extends LitParents {
         `;
     }
 }
-
-customElements.define('l-input', LInput);
