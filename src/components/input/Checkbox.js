@@ -41,6 +41,7 @@ class LCheckbox extends InputContainer {
         let isLabelLeft = (this['label-align'] && this['label-align'] === 'left');
 
         return html`
+            <!--
             <l-input-container
                     width="${ifDefined(this['width'])}"
                     id="${this['id']}"
@@ -53,7 +54,8 @@ class LCheckbox extends InputContainer {
                     feedback-type="${ifDefined(this['feedback-type'])}"
                     feedback-visible-type="${ifDefined(this['feedback-visible-type'])}"
             >
-                <div class="form-group mb-4" slot="input">
+            -->
+                <div class="form-group" slot="input">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                         <label class="form-check-label" for="defaultCheck1">Default checkbox</label>
@@ -68,7 +70,7 @@ class LCheckbox extends InputContainer {
                     </div>
                 </div>
 
-                <div class="form-group mb-3" slot="input">
+                <div class="form-group" slot="input">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
                         <label class="form-check-label" for="inlineCheckbox1">1</label>
@@ -83,8 +85,9 @@ class LCheckbox extends InputContainer {
                         <label class="form-check-label" for="inlineCheckbox3">3 (disabled)</label>
                     </div>
                 </div>
-                
+            <!--    
             </l-input-container>
+            -->
 
         `;
     }
