@@ -1,10 +1,6 @@
-import {css, html, LitElement, nothing, render} from 'lit';
-import {LFeedback} from "../text/Feedback.js";
-import {LabelAndFeedContainer} from "../container/LabelAndFeedContainer.js";
+import {html, nothing} from 'lit';
 import {classMap} from "lit/directives/class-map.js";
 import '../commons/common.css';
-import {SharedStyles} from "../commons/SharedStyles.js";
-import {TextStyles} from "../commons/TextStyles.js";
 import {LitParents} from "../commons/LitParents.js";
 import {ifDefined} from "lit/directives/if-defined.js";
 import {customElement} from 'lit/decorators.js';
@@ -98,7 +94,23 @@ class LCheckbox extends LitParents {
         this.requestUpdate();
     }
 
+    isValid(value, required) {
+        if (!value && required) {
+            return false;
+        }
+    }
 
+    validate() {
+        const value = this.getValue().trim();
+        const $inputElement = this.shadowRoot.querySelector(this.selector);
+        const isFlag = this.isValid(value, this['required']);
+
+        $inputElement.classList.toggle('is-invalid', !isFlag); // Toggle 'is-invalid' based on validity
+    }
+
+    checkValidity() {
+        this.validate();
+    }
 
     render() {
         let isLabelRight = (this['label-align'] && this['label-align'] === 'right');

@@ -8,14 +8,14 @@ export default {
     tags: ['autodocs'],
     component: 'l-radio',
     argTypes: {
-        size: {
-            control: {type: 'select'},
-            options: ['default','large','small'],
-            table: {
-                category: "attributes",
-                defaultValue: {summary: 'default'}
-            }
-        },
+        // size: {
+        //     control: {type: 'select'},
+        //     options: ['default','large','small'],
+        //     table: {
+        //         category: "attributes",
+        //         defaultValue: {summary: 'default'}
+        //     }
+        // },
         id: {table: {category: "attributes",}},
         name: {table: {category: "attributes",}},
         width: {table: {category: "attributes",}},
@@ -120,62 +120,6 @@ export default {
             description: "Text값을 설정합니다.",
         },
 
-        getCheckedTextsByNameGroup: {
-            control: {
-                type: {},
-                disable: true
-            },
-            table: {
-                category: "function",
-                subcategory: "value",
-                type: {summary: "(()=> return [])"},
-
-            },
-            description: "선택된 체크박스와 같은 이름의 체크된 Text값들을 가져옵니다.",
-        },
-
-        getTextsByNameGroup: {
-            control: {
-                type: {},
-                disable: true
-            },
-            table: {
-                category: "function",
-                subcategory: "value",
-                type: {summary: "(()=> return [])"},
-
-            },
-            description: "선택된 체크박스와 같은 이름의 Text값들을 가져옵니다.",
-        },
-
-        getCheckedValuesByNameGroup: {
-            control: {
-                type: {},
-                disable: true
-            },
-            table: {
-                category: "function",
-                subcategory: "value",
-                type: {summary: "(()=> return [])"},
-
-            },
-            description: "선택된 체크박스와 같은 이름의 체크된 Value값들을 가져옵니다.",
-        },
-
-        getValuesByNameGroup: {
-            control: {
-                type: {},
-                disable: true
-            },
-            table: {
-                category: "function",
-                subcategory: "value",
-                type: {summary: "(()=> return [])"},
-
-            },
-            description: "선택된 체크박스와 같은 이름의 Value값들을 가져옵니다.",
-        },
-
         isValid: {
             control: {
                 type: {},
@@ -188,18 +132,7 @@ export default {
             },
             description: "입력값의 유효성을 체크합니다.",
         },
-        checkValidity: {
-            control: {
-                type: {},
-                disable: true
-            },
-            table: {
-                category: "function",
-                subcategory: "validate",
-                type: {summary: "function()"},
-            },
-            description: "입력값의 유효성을 체크합니다.",
-        }
+
 
     },
 };
@@ -208,7 +141,7 @@ export default {
 const Template = (args) => {
     return html`
         <l-radio
-                size=${ifDefined(args.size)}
+                
                 id=${ifDefined(args.id)}
                 name=${ifDefined(args.name)}
                 width=${ifDefined(args.width)}
@@ -234,25 +167,6 @@ RadioDefault.args = {
 };
 
 
-const sizeTemplate = (args) => {
-    return html`
-        <div class="form-group mb-4">
-        <l-radio name="raido_1" label="default size" value="default"></l-radio>
-
-        <div style="margin: 16px"></div>
-
-        <l-radio name="raido_1" size='large' label="large size" value="large"></l-radio>
-        <div style="margin: 16px"></div>
-
-        <l-radio name="raido_1" size='small' label="small size" value="small"></l-radio>
-        </div>
-    `
-}
-
-export const size = sizeTemplate.bind({});
-size.args = {
-
-};
 
 const horizontalTemplate = (args) => {
     return html`

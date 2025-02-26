@@ -1,13 +1,11 @@
-import {css, html, LitElement, nothing, render} from 'lit';
-import {LFeedback} from "../text/Feedback.js";
-import {LabelAndFeedContainer} from "../container/LabelAndFeedContainer.js";
+import {html, nothing} from 'lit';
 import {classMap} from "lit/directives/class-map.js";
 import '../commons/common.css';
-import {SharedStyles} from "../commons/SharedStyles.js";
-import {TextStyles} from "../commons/TextStyles.js";
 import {LitParents} from "../commons/LitParents.js";
 import {ifDefined} from "lit/directives/if-defined.js";
 import {customElement} from 'lit/decorators.js';
+import './Radio.css';
+import '../commons/common.css';
 
 @customElement('l-radio')
 class LRadio extends LitParents {
@@ -17,13 +15,13 @@ class LRadio extends LitParents {
         super.setSelector('input');
     }
 
+    /**
+     *  Radio가 그룹으로 묶이지 않는 이슈가 있어 shadowroot 사용안함
+     * @returns {LRadio}
+     */
     createRenderRoot() {
-        return this; // Shadow DOM을 사용하지 않음
+        return this;
     }
-
-    static styles = [
-        ...super.styles
-    ];
 
     static get properties() {
         return {
@@ -43,50 +41,16 @@ class LRadio extends LitParents {
         };
     }
 
-    /**
-     * 공통적으로 name 속성을 기반으로 같은 그룹의 체크된 값들을 가져오는 함수
-     * @param {string} key - 가져올 데이터 유형 ('label' | 'value')
-     * @param {boolean} onlyChecked - 체크된 항목만 가져올지 여부
-     * @returns {Array<{id: string, value: string}>} 체크된 항목 리스트
-     */
-    _getRadioGroupData(key, onlyChecked = false) {
-        const name = this.getAttribute("name");
+    getValue() {
+        const inputElement = this.querySelector(this.selector);
+        return inputElement ? inputElement.value : null;
+    }
 
-        if (!name) {
-            console.warn("이 체크박스에는 name 속성이 없습니다.");
-            return [];
+    setValue(value) {
+        const inputElement = this.querySelector(this.selector);
+        if (inputElement) {
+            inputElement.value = value;
         }
-
-        return Array.from(document.querySelectorAll(`l-radio[name="${name}"]`))
-            .map(lRadio => {
-                const radio = lRadio.shadowRoot
-                    ? lRadio.shadowRoot.querySelector('input[type="radio"]')
-                    : lRadio.querySelector('input[type="radio"]');
-
-                if (!radio || (onlyChecked && !radio.checked)) return null;
-
-                return {
-                    id: lRadio.id,
-                    value: key === "label" ? lRadio.getAttribute("label") : lRadio.value
-                };
-            })
-            .filter(Boolean); // null 값 제거
-    }
-
-    getCheckedTextsByNameGroup() {
-        return this._getRadioGroupData("label", true);
-    }
-
-    getCheckedValuesByNameGroup() {
-        return this._getRadioGroupData("value", true);
-    }
-
-    getTextsByNameGroup() {
-        return this._getRadioGroupData("label", false);
-    }
-
-    getValuesByNameGroup() {
-        return this._getRadioGroupData("value", false);
     }
 
     getText() {
@@ -102,13 +66,30 @@ class LRadio extends LitParents {
         this.requestUpdate();
     }
 
+    isValid(value, required) {
+        if (!value && required) {
+            return false;
+        }
+    }
 
+    validate() {
+        console.log('validate')
+        const value = this.getValue().trim();
+        const $inputElement = this.querySelector(this.selector);
+        const isFlag = this.isValid(value, this['required']);
+
+        $inputElement.classList.toggle('is-invalid', !isFlag); // Toggle 'is-invalid' based on validity
+    }
+
+    checkValidity() {
+        this.validate();
+    }
 
     render() {
 
         let isLabelRight = (this['label-align'] && this['label-align'] === 'right');
 
-        console.log('aa');
+
         return html`
             <div
                     style="width: ${this['width'] ? this['width'] : nothing}"

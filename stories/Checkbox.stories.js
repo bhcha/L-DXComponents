@@ -188,18 +188,7 @@ export default {
             },
             description: "입력값의 유효성을 체크합니다.",
         },
-        checkValidity: {
-            control: {
-                type: {},
-                disable: true
-            },
-            table: {
-                category: "function",
-                subcategory: "validate",
-                type: {summary: "function()"},
-            },
-            description: "입력값의 유효성을 체크합니다.",
-        }
+
 
     },
 };
