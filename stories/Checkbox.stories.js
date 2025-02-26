@@ -93,6 +93,89 @@ export default {
             },
             description: "input값을 설정합니다.",
         },
+
+        getText: {
+            control: {
+                type: {},
+                disable: true
+            },
+            table: {
+                category: "function",
+                subcategory: "value",
+                type: {summary: "(()=> return new String)"},
+
+            },
+            description: "Text값을 가져옵니다.",
+        },
+        setText: {
+            control: {
+                type: {},
+                disable: true
+            },
+            table: {
+                category: "function",
+                subcategory: "value",
+                type: {summary: "function(value)"},
+            },
+            description: "Text값을 설정합니다.",
+        },
+
+        getCheckedTextsByNameGroup: {
+            control: {
+                type: {},
+                disable: true
+            },
+            table: {
+                category: "function",
+                subcategory: "value",
+                type: {summary: "(()=> return [])"},
+
+            },
+            description: "선택된 체크박스와 같은 이름의 체크된 Text값들을 가져옵니다.",
+        },
+
+        getTextsByNameGroup: {
+            control: {
+                type: {},
+                disable: true
+            },
+            table: {
+                category: "function",
+                subcategory: "value",
+                type: {summary: "(()=> return [])"},
+
+            },
+            description: "선택된 체크박스와 같은 이름의 Text값들을 가져옵니다.",
+        },
+
+        getCheckedValuesByNameGroup: {
+            control: {
+                type: {},
+                disable: true
+            },
+            table: {
+                category: "function",
+                subcategory: "value",
+                type: {summary: "(()=> return [])"},
+
+            },
+            description: "선택된 체크박스와 같은 이름의 체크된 Value값들을 가져옵니다.",
+        },
+
+        getValuesByNameGroup: {
+            control: {
+                type: {},
+                disable: true
+            },
+            table: {
+                category: "function",
+                subcategory: "value",
+                type: {summary: "(()=> return [])"},
+
+            },
+            description: "선택된 체크박스와 같은 이름의 Value값들을 가져옵니다.",
+        },
+
         isValid: {
             control: {
                 type: {},
