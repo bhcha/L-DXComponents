@@ -1,0 +1,136 @@
+import {css, html, LitElement, nothing, render} from 'lit';
+import {LFeedback} from "../text/Feedback.js";
+import {LabelAndFeedContainer} from "../container/LabelAndFeedContainer.js";
+import {classMap} from "lit/directives/class-map.js";
+import '../commons/common.css';
+import {SharedStyles} from "../commons/SharedStyles.js";
+import {TextStyles} from "../commons/TextStyles.js";
+import {LitParents} from "../commons/LitParents.js";
+import {ifDefined} from "lit/directives/if-defined.js";
+import {customElement} from 'lit/decorators.js';
+
+@customElement('l-radio')
+class LRadio extends LitParents {
+
+    constructor() {
+        super();
+        super.setSelector('input');
+    }
+
+    createRenderRoot() {
+        return this; // Shadow DOM을 사용하지 않음
+    }
+
+    static styles = [
+        ...super.styles
+    ];
+
+    static get properties() {
+        return {
+            // input properties
+            size: {type: String},
+            id: {type: String},
+            class: {type: String},
+            name: {type: String},
+            width: {type: String},
+            label: {type: String},
+            'label-align': {type: String},
+            checked: {type: Boolean},
+            required: {type: Boolean},
+            disabled: {type: Boolean},
+            readonly: {type: Boolean},
+            value: {type: String}
+        };
+    }
+
+    /**
+     * 공통적으로 name 속성을 기반으로 같은 그룹의 체크된 값들을 가져오는 함수
+     * @param {string} key - 가져올 데이터 유형 ('label' | 'value')
+     * @param {boolean} onlyChecked - 체크된 항목만 가져올지 여부
+     * @returns {Array<{id: string, value: string}>} 체크된 항목 리스트
+     */
+    _getRadioGroupData(key, onlyChecked = false) {
+        const name = this.getAttribute("name");
+
+        if (!name) {
+            console.warn("이 체크박스에는 name 속성이 없습니다.");
+            return [];
+        }
+
+        return Array.from(document.querySelectorAll(`l-radio[name="${name}"]`))
+            .map(lRadio => {
+                const radio = lRadio.shadowRoot
+                    ? lRadio.shadowRoot.querySelector('input[type="radio"]')
+                    : lRadio.querySelector('input[type="radio"]');
+
+                if (!radio || (onlyChecked && !radio.checked)) return null;
+
+                return {
+                    id: lRadio.id,
+                    value: key === "label" ? lRadio.getAttribute("label") : lRadio.value
+                };
+            })
+            .filter(Boolean); // null 값 제거
+    }
+
+    getCheckedTextsByNameGroup() {
+        return this._getRadioGroupData("label", true);
+    }
+
+    getCheckedValuesByNameGroup() {
+        return this._getRadioGroupData("value", true);
+    }
+
+    getTextsByNameGroup() {
+        return this._getRadioGroupData("label", false);
+    }
+
+    getValuesByNameGroup() {
+        return this._getRadioGroupData("value", false);
+    }
+
+    getText() {
+        return this.getAttribute("label") || "";
+    }
+
+    setText(newLabel) {
+        if (typeof newLabel !== "string") {
+            console.warn("setText의 인자는 문자열이어야 합니다.");
+            return;
+        }
+        this.setAttribute("label", newLabel);
+        this.requestUpdate();
+    }
+
+
+
+    render() {
+
+        let isLabelRight = (this['label-align'] && this['label-align'] === 'right');
+
+        console.log('aa');
+        return html`
+            <div
+                    style="width: ${this['width'] ? this['width'] : nothing}"
+                    class="${
+                            classMap({
+                                'form-check': true
+                                , 'form-check-inline': true
+                                , 'form-control-lg': this['size'] === 'large'
+                                , 'form-control-sm': this['size'] === 'small'
+                            })
+                    }">
+                <input class="form-check-input"
+                       type="radio"
+                       value="${ifDefined(this['value'])}"
+                       id="${ifDefined(this['id'])}"
+                       name="${ifDefined(this['name'])}"
+                       ?required=${this['required']}
+                       ?checked=${this['checked']}
+                       ?disabled=${this['disabled']}
+                >
+                <label class="form-check-label" for="${ifDefined(this['id'])}">${ifDefined(this['label'])}</label>
+            </div>
+        `;
+    }
+}
