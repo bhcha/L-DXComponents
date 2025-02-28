@@ -3162,6 +3162,40 @@ class SharedStyles {
                 z-index: 4
             }
 
+
+            /* (1) SCSS에서 & .typeahead__field는 "부모요소 .typeahead__field"로 확장 */
+
+            .parent-selector .typeahead__field .typeahead__query input {
+                background: none;
+                border-color: var(--input-border-color);
+                /* $enable-rtl = false 시 가정: 0 $border-radius $border-radius 0 */
+                border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            }
+
+            .parent-selector .typeahead__field .typeahead__query input:focus {
+                border-color: var(--input-focus-border-color);
+                box-shadow: var(--input-focus-box-shadow);
+            }
+
+            .parent-selector .typeahead__field .typeahead__query .typeahead__cancel-button {
+                color: transparent;
+                top: 0;
+                bottom: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 100;
+            }
+
+            .parent-selector .typeahead__field .typeahead__query .typeahead__cancel-button:before {
+                content: '\\f00d';
+                position: absolute;
+                /* var(--#{$prefix}body-color) => var(--prefix-body-color) 로 가정 */
+                color: var(--prefix-body-color);
+                /* @include fontawesome(); => 직접 font-family, font-weight 등 정의 필요 */
+                font-family: "FontAwesome";
+            }
+
             .btn {
                 --bs-btn-padding-x: 0.75rem;
                 --bs-btn-padding-y: 0.375rem;
