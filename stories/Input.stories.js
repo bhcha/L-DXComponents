@@ -2,15 +2,14 @@ import '/src/components/input/Input.js'
 import {html} from "lit";
 import {ifDefined} from 'lit/directives/if-defined.js';
 import './commons/CommonArgs.js'
-import {argsCommons, argsValue, argsSize, argsLabel, argsFeedback} from "./commons/CommonArgs.js";
+import {getComponentArgs} from "./commons/CommonArgs.js";
 
 export default {
     title: 'LABEL & FEEDBACK & COMPONENTS/Input',
     tags: ['autodocs'],
     component: 'l-c-input',
     argTypes: {
-        ...argsCommons, ...argsValue, ...argsSize,
-        ...argsLabel, ...argsFeedback,
+        ...getComponentArgs('commons', 'value', 'size', 'label', 'feedback', 'required', 'placeholder', 'inputAutocomplete', 'readonly', 'valid'),
         type: {
             control: {type: 'select'},
             options: ['text', 'planText', 'number', 'password', 'tel', 'hidden', 'file', 'search', 'email', 'url'],
@@ -19,14 +18,14 @@ export default {
                 defaultValue: {summary: 'text'}
             }
         },
-        placeholder: {
-            control: {type: 'text'},
+        step: {
+            control: {type: 'number'},
             table: {
                 category: "attributes",
-                subcategory: "text",
+                subcategory: "value",
             }
+            , if: {arg: 'type', eq: 'number'},
         },
-
         'component-style': {
             control: {type: 'text'},
             table: {
@@ -66,69 +65,12 @@ export default {
             },
             description: "ex) [0-9]{3}-[0-9]{4}-[0-9]{4}",
         },
-
-        required: {
-            control: 'boolean',
+        'pattern-block': {
+            control: {type: 'boolean'},
             table: {
                 category: "attributes",
-                defaultValue: {summary: false},
-                subcategory: "validate"
+                subcategory: "validate",
             }
-        },
-        readonly: {
-            control: 'boolean',
-            table: {
-                category: "attributes",
-                defaultValue: {summary: false}
-            }
-        },
-        isValid: {
-            control: {
-                type: {},
-                disable: true
-            },
-            table: {
-                category: "function",
-                subcategory: "validate",
-                type: {summary: "(()=> return new Boolean) "},
-            },
-            description: "입력값의 유효성을 체크합니다.",
-        },
-        checkValidity: {
-            control: {
-                type: {},
-                disable: true
-            },
-            table: {
-                category: "function",
-                subcategory: "validate",
-                type: {summary: "function()"},
-            },
-            description: "입력값의 유효성을 체크합니다.",
-        },
-        setValid: {
-            control: {
-                type: {},
-                disable: true
-            },
-            table: {
-                category: "function",
-                subcategory: "validate",
-                type: {summary: "(()=> return false) "},
-            },
-            description: "유효한 상태로 표시합니다.",
-        },
-        inValid: {
-            control: {
-                type: {},
-                disable: true
-            },
-            table: {
-                category: "function",
-                subcategory: "validate",
-                type: {summary: "(()=> return false) "},
-            },
-            description: "유효하지 않은 상태로 표시합니다.",
         },
         getComponent: {
             control: {
@@ -170,7 +112,9 @@ const Template = (args) => {
                 ?readonly=${args.readonly}
                 placeholder="${ifDefined(args.placeholder)}"
                 pattern="${ifDefined(args.pattern)}"
+                pattern-block="${ifDefined(args['pattern-block'])}"
                 value="${ifDefined(args.value)}"
+                step="${ifDefined(args.step)}"
         >
         </l-c-input>`
 }
