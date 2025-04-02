@@ -204,6 +204,26 @@ InputPatternValidity.args = {
     readonly: false,
 };
 
+export const InputPatternBlockValidity = Template.bind({});
+InputPatternBlockValidity.args = {
+    type: 'text',
+    id: 'input01',
+    name: 'name',
+    width: '100%',
+    label: 'Phone',
+    'label-align': 'top',
+    'label-width': 'auto',
+    'label-text-align': 'left',
+    feedback: 'invalid pattern',
+    'feedback-type': 'error',
+    'feedback-visible-type': 'invalid',
+    pattern: '^[가-힣ㄱ-ㅎㅏ-ㅣA-Za-z0-9]+$',
+    'pattern-block': true,
+    required: false,
+    disabled: false,
+    readonly: false,
+};
+
 export const InputPatternAndRequireValidity = Template.bind({});
 InputPatternAndRequireValidity.args = {
     type: 'text',
